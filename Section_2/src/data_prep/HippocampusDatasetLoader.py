@@ -40,6 +40,7 @@ def LoadHippocampusData(root_dir, y_shape, z_shape):
 
         # TASK: normalize all images (but not labels) so that values are in [0..1] range
         # <YOUR CODE GOES HERE>
+        image = image/image.max()
 
         # We need to reshape data since CNN tensors that represent minibatches
         # in our case will be stacks of slices and stacks need to be of the same size.
@@ -49,6 +50,12 @@ def LoadHippocampusData(root_dir, y_shape, z_shape):
         # extend 2 dimensions out of 3. We choose to extend coronal and sagittal here
 
         # TASK: med_reshape function is not complete. Go and fix it!
+        
+        #if(image[1] != y_shape or image[2] != z_shape):
+#             print("filename: {}, invalid image shape, y_shape: {}, z_shape: {}".format(f, image[1], image[2]))
+#             continue
+        
+        
         image = med_reshape(image, new_shape=(image.shape[0], y_shape, z_shape))
         label = med_reshape(label, new_shape=(label.shape[0], y_shape, z_shape)).astype(int)
 
